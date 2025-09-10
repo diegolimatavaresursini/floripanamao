@@ -72,5 +72,154 @@
 
             <div>
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Serviços Parceiros</h3>
-                <div class="flex flex-col md:flex-row gap-4">
-                    <a href="#" class="flex-1 bg-
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                     <a href="#" class="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-4 transition duration-300 hover:border-blue-500 hover:shadow-sm">
+
+                        <img src="https://placehold.co/40x40/000000/FFFFFF?text=U" alt="Uber Logo" class="rounded-full">
+
+                        <div>
+
+                            <p class="font-semibold text-gray-800">Uber</p>
+
+                            <p class="text-xs text-gray-500">Solicite uma viagem</p>
+
+                        </div>
+
+                    </a>
+
+                     <a href="#" class="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-4 transition duration-300 hover:border-red-500 hover:shadow-sm">
+
+                        <img src="https://placehold.co/40x40/FF5A5F/FFFFFF?text=A" alt="Airbnb Logo" class="rounded-full">
+
+                        <div>
+
+                            <p class="font-semibold text-gray-800">Airbnb</p>
+
+                            <p class="text-xs text-gray-500">Encontre hospedagem</p>
+
+                        </div>
+
+                    </a>
+
+                    <a href="#" class="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-4 transition duration-300 hover:border-red-600 hover:shadow-sm">
+
+                        <img src="https://placehold.co/40x40/EA1D2C/FFFFFF?text=I" alt="iFood Logo" class="rounded-full">
+
+                        <div>
+
+                            <p class="font-semibold text-gray-800">iFood</p>
+
+                            <p class="text-xs text-gray-500">Peça sua comida</p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Lógica para o dropdown de idiomas
+
+            const langButton = document.getElementById('lang-button');
+
+            const langDropdown = document.getElementById('lang-dropdown');
+
+            
+
+            langButton.addEventListener('click', function() {
+
+                langDropdown.classList.toggle('hidden');
+
+            });
+
+
+
+            // Fechar dropdown se clicar fora
+
+            document.addEventListener('click', function(event) {
+
+                if (!langButton.contains(event.target)) {
+
+                    langDropdown.classList.add('hidden');
+
+                }
+
+            });
+
+
+
+            // Lógica para trocar o idioma (simulação)
+
+            const langLinks = langDropdown.querySelectorAll('a');
+
+            const currentLangSpan = document.getElementById('current-lang');
+
+            langLinks.forEach(link => {
+
+                link.addEventListener('click', function(e) {
+
+                    e.preventDefault();
+
+                    const selectedLang = e.target.getAttribute('data-lang');
+
+                    currentLangSpan.textContent = selectedLang;
+
+                    langDropdown.classList.add('hidden');
+
+                    // Aqui você adicionaria a lógica para traduzir o conteúdo da página
+
+                    console.log(Idioma alterado para: ${selectedLang});
+
+                });
+
+            });
+
+
+
+            // --- Lógica de Detecção Automática de Idioma (Conceitual) ---
+
+            // Em um aplicativo real, a lógica de tradução seria mais complexa.
+
+            // O código abaixo detecta o idioma do navegador do usuário como ponto de partida.
+
+            const userLang = navigator.language || navigator.userLanguage; 
+
+            console.log("Idioma detectado do navegador:", userLang);
+
+
+
+            if (userLang.startsWith('en')) {
+
+                currentLangSpan.textContent = 'English';
+
+                // Função para traduzir para inglês
+
+            } else if (userLang.startsWith('es')) {
+
+                currentLangSpan.textContent = 'Español';
+
+                // Função para traduzir para espanhol
+
+            }
+
+            // O padrão é Português, já definido no HTML.
+
+        });
+
+    </script>
+
+</body>
+
+</html>
