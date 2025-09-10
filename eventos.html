@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - Floripa na Mão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .calendar-day {
+            transition: background-color 0.2s;
+        }
+        .calendar-day:hover {
+            background-color: #eff6ff; /* blue-50 */
+        }
+        .has-event {
+            position: relative;
+        }
+        .has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #3b82f6; /* blue-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="w-full max-w-5xl mx-auto p-4 sm:p-6 md:p-8">
+        
+        <!-- Cabeçalho -->
+        <header class="flex justify-between items-center mb-8">
+            <a href="index.html" class="text-gray-600 hover:text-blue-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                <span class="font-medium" data-translate-key="back">Voltar</span>
+            </a>
+            <div class="relative">
+                <button id="lang-button" class="flex items-center space-x-2 bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 21M9 15a9 9 0 11-5.93-3.23" /></svg>
+                    <span id="current-lang">Português</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-xl z-10">
+                    <a href="#" class="lang-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="pt">Português</a>
+                    <a href="#" class="lang-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="en">English</a>
+                    <a href="#" class="lang-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="es">Español</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Seção Principal -->
+        <main>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2" data-translate-key="pageTitle">Agenda de Eventos</h2>
+            <p class="text-gray-500 mb-8" data-translate-key="pageSubtitle">Fique por dentro do que acontece em Floripa e SC.</p>
+
+            <!-- Localização e Mapa -->
+            <div class="mb-10 bg-white p-6 rounded-2xl shadow-lg">
+                <h3 class="font-bold text-xl text-gray-800 mb-4" data-translate-key="locationTitle">Localização e Eventos Próximos</h3>
+                <p class="text-gray-600 mb-4" data-translate-key="locationDesc">Veja os eventos acontecendo perto de você no mapa.</p>
+                <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
+                    <!-- Google Maps iFrame Placeholder -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113264.93541279802!2d-48.61803961550971!3d-27.59226591090332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9527394eb1c3366f%3A0x452d334546872554!2sFlorian%C3%B3polis%2C%20SC!5e0!3m2!1spt-BR!2sbr!4v1662580000000!5m2!1spt-BR!2sbr" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            
+            <!-- Eventos Hoje -->
+            <div class="mb-10">
+                <h3 class="font-bold text-xl text-gray-800 mb-4" data-translate-key="todayEventsTitle">Eventos Hoje</h3>
+                 <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-xl shadow-md flex items-center space-x-4">
+                        <div class="bg-blue-100 text-blue-600 p-3 rounded-lg flex flex-col items-center justify-center">
+                            <span class="font-bold text-lg">07</span>
+                            <span class="text-xs font-medium">SET</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800" data-translate-key="event1_name">Show Nacional com Armandinho</h4>
+                            <p class="text-sm text-gray-500" data-translate-key="event1_location">Stage Music Park - Jurerê</p>
+                        </div>
+                         <a href="#" class="ml-auto bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold hover:bg-blue-600" data-translate-key="seeMore">Ver mais</a>
+                    </div>
+                     <div class="bg-white p-4 rounded-xl shadow-md flex items-center space-x-4">
+                        <div class="bg-green-100 text-green-600 p-3 rounded-lg flex flex-col items-center justify-center">
+                            <span class="font-bold text-lg">07</span>
+                            <span class="text-xs font-medium">SET</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800" data-translate-key="event2_name">Feira de Artesanato local</h4>
+                            <p class="text-sm text-gray-500" data-translate-key="event2_location">Praça XV de Novembro - Centro</p>
+                        </div>
+                        <a href="#" class="ml-auto bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold hover:bg-blue-600" data-translate-key="seeMore">Ver mais</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendário -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-xl text-gray-800" data-translate-key="calendarTitle">Setembro 2025</h3>
+                    <div class="flex space-x-2">
+                        <button class="text-gray-500 hover:text-gray-800 p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="text-gray-500 hover:text-gray-800 p-2 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center text-sm">
+                    <div class="font-semibold text-gray-500" data-translate-key="sun">D</div>
+                    <div class="font-semibold text-gray-500" data-translate-key="mon">S</div>
+                    <div class="font-semibold text-gray-500" data-translate-key="tue">T</div>
+                    <div class="font-semibold text-gray-500" data-translate-key="wed">Q</div>
+                    <div class="font-semibold text-gray-500" data-translate-key="thu">Q</div>
+                    <div class="font-semibold text-gray-500" data-translate-key="fri">S</div>
+                    <div class="font-semibold text-gray-500" data-translate-key="sat">S</div>
+
+                    <!-- Dias do calendário -->
+                    <div class="text-gray-400 py-2">31</div>
+                    <div class="calendar-day py-2 rounded-full">1</div>
+                    <div class="calendar-day py-2 rounded-full">2</div>
+                    <div class="calendar-day py-2 rounded-full">3</div>
+                    <div class="calendar-day py-2 rounded-full has-event">4</div>
+                    <div class="calendar-day py-2 rounded-full">5</div>
+                    <div class="calendar-day py-2 rounded-full">6</div>
+                    <div class="calendar-day py-2 rounded-full has-event font-bold text-white bg-blue-500">7</div>
+                    <div class="calendar-day py-2 rounded-full">8</div>
+                    <div class="calendar-day py-2 rounded-full">9</div>
+                    <div class="calendar-day py-2 rounded-full">10</div>
+                    <div class="calendar-day py-2 rounded-full">11</div>
+                    <div class="calendar-day py-2 rounded-full has-event">12</div>
+                    <div class="calendar-day py-2 rounded-full">13</div>
+                    <div class="calendar-day py-2 rounded-full">14</div>
+                    <div class="calendar-day py-2 rounded-full">15</div>
+                    <div class="calendar-day py-2 rounded-full">16</div>
+                    <div class="calendar-day py-2 rounded-full">17</div>
+                    <div class="calendar-day py-2 rounded-full">18</div>
+                    <div class="calendar-day py-2 rounded-full">19</div>
+                    <div class="calendar-day py-2 rounded-full has-event">20</div>
+                    <div class="calendar-day py-2 rounded-full">21</div>
+                    <div class="calendar-day py-2 rounded-full">22</div>
+                    <div class="calendar-day py-2 rounded-full">23</div>
+                    <div class="calendar-day py-2 rounded-full">24</div>
+                    <div class="calendar-day py-2 rounded-full">25</div>
+                    <div class="calendar-day py-2 rounded-full">26</div>
+                    <div class="calendar-day py-2 rounded-full">27</div>
+                    <div class="calendar-day py-2 rounded-full">28</div>
+                    <div class="calendar-day py-2 rounded-full">29</div>
+                    <div class="calendar-day py-2 rounded-full">30</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+            const translations = {
+                pt: {
+                    back: "Voltar",
+                    pageTitle: "Agenda de Eventos",
+                    pageSubtitle: "Fique por dentro do que acontece em Floripa e SC.",
+                    locationTitle: "Localização e Eventos Próximos",
+                    locationDesc: "Veja os eventos acontecendo perto de você no mapa.",
+                    todayEventsTitle: "Eventos Hoje",
+                    event1_name: "Show Nacional com Armandinho",
+                    event1_location: "Stage Music Park - Jurerê",
+                    event2_name: "Feira de Artesanato local",
+                    event2_location: "Praça XV de Novembro - Centro",
+                    seeMore: "Ver mais",
+                    calendarTitle: "Setembro 2025",
+                    sun: "D", mon: "S", tue: "T", wed: "Q", thu: "Q", fri: "S", sat: "S"
+                },
+                en: {
+                    back: "Back",
+                    pageTitle: "Event Schedule",
+                    pageSubtitle: "Stay up to date with what's happening in Floripa and SC.",
+                    locationTitle: "Location & Nearby Events",
+                    locationDesc: "See events happening near you on the map.",
+                    todayEventsTitle: "Today's Events",
+                    event1_name: "National Concert with Armandinho",
+                    event1_location: "Stage Music Park - Jurerê",
+                    event2_name: "Local Craft Fair",
+                    event2_location: "Praça XV de Novembro - Downtown",
+                    seeMore: "See more",
+                    calendarTitle: "September 2025",
+                    sun: "S", mon: "M", tue: "T", wed: "W", thu: "T", fri: "F", sat: "S"
+                },
+                es: {
+                    back: "Volver",
+                    pageTitle: "Agenda de Eventos",
+                    pageSubtitle: "Mantente al tanto de lo que sucede en Floripa y SC.",
+                    locationTitle: "Ubicación y Eventos Cercanos",
+                    locationDesc: "Mira los eventos que suceden cerca de ti en el mapa.",
+                    todayEventsTitle: "Eventos de Hoy",
+                    event1_name: "Show Nacional con Armandinho",
+                    event1_location: "Stage Music Park - Jurerê",
+                    event2_name: "Feria de Artesanía Local",
+                    event2_location: "Plaza XV de Noviembre - Centro",
+                    seeMore: "Ver más",
+                    calendarTitle: "Septiembre 2025",
+                    sun: "D", mon: "L", tue: "M", wed: "M", thu: "J", fri: "V", sat: "S"
+                }
+            };
+
+            const langButton = document.getElementById('lang-button');
+            const langDropdown = document.getElementById('lang-dropdown');
+            const currentLangSpan = document.getElementById('current-lang');
+            
+            function translatePage(lang) {
+                document.querySelectorAll('[data-translate-key]').forEach(el => {
+                    const key = el.getAttribute('data-translate-key');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+                const langMap = { pt: 'Português', en: 'English', es: 'Español' };
+                currentLangSpan.textContent = langMap[lang];
+            }
+
+            langButton.addEventListener('click', () => langDropdown.classList.toggle('hidden'));
+            document.addEventListener('click', (event) => {
+                if (!langButton.contains(event.target)) {
+                    langDropdown.classList.add('hidden');
+                }
+            });
+
+            langDropdown.querySelectorAll('.lang-option').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedLang = e.target.getAttribute('data-lang');
+                    translatePage(selectedLang);
+                    langDropdown.classList.add('hidden');
+                });
+            });
+
+            const userLang = (navigator.language || navigator.userLanguage).substring(0, 2);
+            const supportedLangs = ['pt', 'en', 'es'];
+            const initialLang = supportedLangs.includes(userLang) ? userLang : 'pt';
+            translatePage(initialLang);
+        });
+    </script>
+</body>
+</html>
